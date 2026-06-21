@@ -27,3 +27,6 @@ etl/.pytest_cache/
 # ── OS / editor ──
 .DS_Store
 Thumbs.db
+
+backend/publish/
+backend/*.zip
