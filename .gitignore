@@ -1,0 +1,29 @@
+# ── .NET ──
+backend/**/bin/
+backend/**/obj/
+*.user
+
+# ── Node / Angular ──
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/shots/
+frontend/scripts/board.mjs
+frontend/test-results/
+frontend/playwright-report/
+
+# ── Python ──
+etl/.venv/
+etl/venv/
+**/__pycache__/
+*.pyc
+etl/.pytest_cache/
+
+# ── env / secrets ──
+.env
+*.local
+.azure-secrets.local
+
+# ── OS / editor ──
+.DS_Store
+Thumbs.db

@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: pulseboard-db
+    environment:
+      POSTGRES_USER: pulseboard
+      POSTGRES_PASSWORD: PulseBoard_Dev!2026
+      POSTGRES_DB: pulseboard
+    ports:
+      - "55432:5432"
+    volumes:
+      - pulseboard_pg:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pulseboard -d pulseboard"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  etl:
+    build: ./etl
+    container_name: pulseboard-etl
+    environment:
+      ETL_DATABASE_URL: postgresql://pulseboard:PulseBoard_Dev!2026@db:5432/pulseboard
+      ETL_API_KEY: ${ETL_API_KEY:-pulseboard-etl-dev-key}
+    ports:
+      - "8100:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pulseboard_pg:
